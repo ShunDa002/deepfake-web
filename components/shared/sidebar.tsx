@@ -44,8 +44,10 @@ const ChatSidebar = () => {
       {/* Sidebar - Always visible, changes width when collapsed */}
       <aside
         className={cn(
-          "fixed top-0 left-0 h-full bg-secondary/95 backdrop-blur-sm border-r border-border flex flex-col z-40 transition-all duration-300 ease-in-out",
-          sidebarOpen ? "w-64" : "w-14"
+          "fixed top-0 left-0 z-40 flex h-full flex-col border-r border-border bg-secondary/95 backdrop-blur-sm transition-all duration-300 ease-in-out transform",
+          sidebarOpen ? "translate-x-0 w-64" : "-translate-x-full w-64",
+          sidebarOpen ? "lg:w-64" : "lg:w-14",
+          "lg:translate-x-0"
         )}
       >
         {/* Top 2/3: navigation + history */}

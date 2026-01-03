@@ -1,7 +1,6 @@
-import { auth } from "@/auth";
+"use client";
+
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { UserIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,12 +8,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { signOutUser } from "@/lib/actions/user.actions";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
+import { UserIcon } from "lucide-react";
 
-const UserButton = async () => {
-  const session = await auth();
+const UserButton = () => {
+  const { data: session, status } = useSession();
 
-  if (!session) {
+  const isAuthenticated = status === "authenticated" && !!session?.user;
+
+  if (!isAuthenticated) {
     return (
       <div className="flex items-center gap-1">
         <Button asChild size="sm">
@@ -57,14 +60,12 @@ const UserButton = async () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuItem className="p-0 mb-1">
-            <form action={signOutUser} className="w-full">
-              <Button
-                className="w-full py-4 px-2 h-4 justify-start"
-                variant="ghost"
-              >
-                Sign out
-              </Button>
-            </form>
+            <button
+              className="w-full text-left px-2 py-2 text-sm hover:bg-accent"
+              onClick={() => signOut()}
+            >
+              Sign out
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
