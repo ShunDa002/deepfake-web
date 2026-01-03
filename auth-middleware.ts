@@ -3,6 +3,8 @@ import type { NextAuthConfig } from "next-auth";
 
 // Lightweight auth config for middleware to avoid bundling heavy server-only dependencies
 const middlewareAuthConfig: NextAuthConfig = {
+  // No providers needed for middleware token verification
+  providers: [],
   session: { strategy: "jwt" },
   trustHost: true,
   callbacks: {
