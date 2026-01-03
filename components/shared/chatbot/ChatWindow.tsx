@@ -27,22 +27,6 @@ const ChatWindow = ({
     scrollToBottom();
   }, [messages, isLoading]);
 
-  // Ensure mobile view uses the real viewport height to avoid browser UI overlays
-  useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-
-    setVh();
-    window.addEventListener("resize", setVh);
-    window.addEventListener("orientationchange", setVh);
-    return () => {
-      window.removeEventListener("resize", setVh);
-      window.removeEventListener("orientationchange", setVh);
-    };
-  }, []);
-
   // Create a placeholder loading message
   const loadingMessage: Message = {
     id: "loading",
@@ -52,9 +36,9 @@ const ChatWindow = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-background h-[calc(var(--vh,1vh)*100)] md:h-full min-h-0">
+    <div className="relative flex-1 flex flex-col bg-background h-full min-h-0">
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto min-h-0">
+      <div className="flex-1 overflow-y-auto min-h-0 pb-28">
         {messages.length === 0 && !isLoading ? (
           <div className="h-full flex flex-col items-center justify-center text-muted-foreground">
             <MessageSquare className="w-12 h-12 mb-4 opacity-50" />
@@ -75,8 +59,8 @@ const ChatWindow = ({
         )}
       </div>
 
-      {/* Input Area */}
-      <div className="sticky bottom-0 bg-background">
+      {/* Input Area (floats over messages) */}
+      <div className="fixed inset-x-0 bottom-0 z-20 bg-background/95 backdrop-blur border-t border-border">
         <ChatInput onSendMessage={onSendMessage} disabled={isLoading} />
       </div>
     </div>
