@@ -2,7 +2,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { signUpDefaultValues } from "@/lib/constants";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
@@ -25,7 +24,7 @@ const SignUpForm = () => {
 
   return (
     <form action={action}>
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div>
           <Label htmlFor="name">Name</Label>
           <Input
@@ -75,13 +74,6 @@ const SignUpForm = () => {
         {data && !data.success && data.message && (
           <div className="text-center text-destructive">{data.message}</div>
         )}
-
-        <div className="text-sm text-center text-muted-foreground">
-          Already have an account?{" "}
-          <Link href="/login" target="_self" className="link">
-            Log In
-          </Link>
-        </div>
       </div>
     </form>
   );

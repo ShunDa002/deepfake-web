@@ -1,7 +1,7 @@
-import UploadImage from "@/components/shared/detector/uploadImage";
+import { redirect } from "next/navigation";
 
 const Homepage = () => {
-  return <UploadImage />;
+  redirect("/image-detector");
 };
 
 export default Homepage;

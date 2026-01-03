@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
 import ModeToggle from "./mode-toggle";
-import Link from "next/link";
-import { EllipsisVertical, UserIcon } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 import {
   Sheet,
   SheetTrigger,
@@ -14,11 +12,11 @@ import UserButton from "./user-button";
 const Menu = () => {
   return (
     <div className="flex justify-end gap-3">
-      <nav className="hidden md:flex w-full max-w-xs gap-1">
+      <nav className="hidden md:flex items-center w-full max-w-xs gap-1">
         <ModeToggle />
         <UserButton />
       </nav>
-      <nav className="md:hidden">
+      <nav className="md:hidden flex items-center">
         <Sheet>
           <SheetTrigger className="align-middle">
             <EllipsisVertical />

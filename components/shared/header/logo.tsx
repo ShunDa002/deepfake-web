@@ -22,8 +22,8 @@ const Logo = () => {
         theme === "light" ? "/images/logo-light.svg" : "/images/logo-dark.svg"
       }
       alt={`${APP_NAME} logo`}
-      width={60}
-      height={60}
+      width={48}
+      height={36}
       priority={true}
     />
   );

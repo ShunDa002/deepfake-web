@@ -16,14 +16,14 @@ const UserButton = async () => {
 
   if (!session) {
     return (
-      <div>
-        <Button asChild>
+      <div className="flex items-center gap-1">
+        <Button asChild size="sm">
           <Link href="/login">
             <UserIcon />
             Log in
           </Link>
         </Button>
-        <Button asChild variant="ghost">
+        <Button asChild variant="ghost" size="sm">
           <Link href="/sign-up">Sign up for free</Link>
         </Button>
       </div>

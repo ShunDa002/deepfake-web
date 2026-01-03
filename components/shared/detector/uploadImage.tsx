@@ -31,9 +31,9 @@ const UploadImage = () => {
         // Fetch the image and convert to File object
         const response = await fetch(url.trim());
         const blob = await response.blob();
-        const fileName = url.split('/').pop() || 'image.jpg';
+        const fileName = url.split("/").pop() || "image.jpg";
         const file = new File([blob], fileName, { type: blob.type });
-        
+
         setUploadedImage(url.trim());
         setImageFile(file);
         // console.log("Image URL:", url);
@@ -58,7 +58,7 @@ const UploadImage = () => {
     if (file) {
       // Store the File object
       setImageFile(file);
-      
+
       // Create preview URL
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -92,10 +92,10 @@ const UploadImage = () => {
     if (uploadedImage && imageFile) {
       setIsSubmitting(true);
       // console.log("Submitting image:", uploadedImage);
-      
+
       try {
         const result = await detectImage(imageFile);
-        
+
         if (result.success) {
           // console.log("Detection successful:", result.data);
           // Store the detection result
@@ -117,6 +117,22 @@ const UploadImage = () => {
 
   return (
     <div className="w-full max-w-sm lg:max-w-xl mx-auto px-4 lg:px-0">
+      <h1 className="text-2xl lg:text-6xl font-bold text-center mb-2 mt-4 lg:mt-8">
+        GuessWho{" "}
+        <span
+          style={{
+            background: "linear-gradient(90deg, #2e83fb, #bc63fb)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          Deepfake Detector
+        </span>
+      </h1>
+      <p className="text-sm lg:text-base text-muted-foreground text-center mb-6">
+        Built on SigLIP - state-of-the-art language-image pre-training model
+      </p>
       {uploadedImage ? (
         <ImageDisplay imageUrl={uploadedImage} onClear={handleClearImage} />
       ) : (
@@ -144,7 +160,16 @@ const UploadImage = () => {
       {detectionResult && (
         <div className="mt-4 p-4 bg-secondary rounded-lg">
           <p className="text-center text-base lg:text-lg font-medium">
-            The image is <span className={`font-bold ${detectionResult.predicted_class === 0 ? 'text-red-400' : 'text-green-400'}`}>{detectionResult.predicted_label}</span>
+            The image is{" "}
+            <span
+              className={`font-bold ${
+                detectionResult.formatted_prediction === "real"
+                  ? "text-green-400"
+                  : "text-red-400"
+              }`}
+            >
+              {detectionResult.formatted_prediction}
+            </span>
           </p>
         </div>
       )}

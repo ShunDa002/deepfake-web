@@ -6,8 +6,9 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
 import { formatErrors } from "@/lib/utils";
+import { AuthError } from "next-auth";
 
-// Sign in the user with credentials
+// Sign in user with credentials
 export async function logInWithCredentials(
   prevState: unknown,
   formData: FormData
@@ -18,9 +19,12 @@ export async function logInWithCredentials(
       password: formData.get("password"),
     });
 
+    const { email, password } = user;
+    const lowerCaseEmail = email.toLowerCase();
+
     await signIn("credentials", {
-      email: user.email,
-      password: user.password,
+      email: lowerCaseEmail,
+      password,
     });
 
     return { success: true, message: "Logged in successfully" };
@@ -48,20 +52,21 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       confirmPassword: formData.get("confirmPassword"),
     });
 
-    const plainPassword = user.password;
-    user.password = hashSync(user.password, 10);
+    const { name, email, password } = user;
+    const hashedPassword = hashSync(password, 10);
+    const lowerCaseEmail = email.toLowerCase();
 
     await prisma.user.create({
       data: {
-        name: user.name,
-        email: user.email,
-        password: user.password,
+        name,
+        email: lowerCaseEmail,
+        password: hashedPassword,
       },
     });
 
     await signIn("credentials", {
-      email: user.email,
-      password: plainPassword,
+      email: lowerCaseEmail,
+      password,
     });
 
     return { success: true, message: "Signed up successfully" };
@@ -75,5 +80,17 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       throw error;
     }
     return { success: false, message: formatErrors(error) };
+  }
+}
+
+// Sign in user with Google
+export async function signInWithGoogle() {
+  try {
+    await signIn("google");
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return "Google log in failed";
+    }
+    throw error;
   }
 }

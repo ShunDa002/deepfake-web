@@ -1,4 +1,4 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "MyChatbot";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "GuessWho";
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_APP_DESCRIPTION || "An AI chatbot built with Next.js";
 export const SERVER_URL =

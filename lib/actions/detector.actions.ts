@@ -8,7 +8,7 @@ export async function detectImage(image: File) {
 
     // Make POST request to FastAPI endpoint
     const response = await fetch(
-      "https://shunda012-fake-detector.hf.space/detect",
+      "https://shunda012-deepfake-fastapi.hf.space/detect",
       {
         method: "POST",
         body: formData,

@@ -6,13 +6,13 @@ const Footer = () => {
   return (
     <footer className="border-t">
       <div className="p-2 flex-center text-center">
-        {currentYear} {APP_NAME}.{" "}
+        {currentYear} {APP_NAME}.&nbsp;
         <span>
-          By messaging MyChatbot, you agree to our{" "}
+          By using {APP_NAME} services, you agree to our&nbsp;
           <a href="/terms" className="underline">
             Terms
-          </a>{" "}
-          and have read our{" "}
+          </a>
+          &nbsp; and have read our&nbsp;
           <a href="/privacypolicy" className="underline">
             Privacy Policy
           </a>

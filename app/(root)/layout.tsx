@@ -1,16 +1,22 @@
 import Header from "@/components/shared/header";
-import Footer from "@/components/footer";
+import Footer from "@/components/shared/footer";
+import { ChatLayoutWrapper } from "@/components/shared/chatbot/chat-layout-wrapper";
+import { auth } from "@/auth";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
-    <div className="flex h-screen flex-col">
-      <Header />
-      <main className="flex-1 wrapper">{children}</main>
-      <Footer />
+    <div className="flex h-screen">
+      <ChatLayoutWrapper>
+        <Header />
+        <main className="flex-1 overflow-auto">{children}</main>
+        {/* {!session && <Footer />} */}
+      </ChatLayoutWrapper>
     </div>
   );
 }

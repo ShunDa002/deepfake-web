@@ -7,11 +7,13 @@ import {
 } from "@/components/ui/card";
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import { APP_NAME } from "@/lib/constants";
 import CredentialsLogInForm from "./credentials-login-form";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import GoogleLogin from "@/components/shared/auth/google-button";
+import { BackButton } from "@/components/shared/auth/back-button";
+import { CardFooter } from "@/components/ui/card";
+import Logo from "@/components/shared/header/logo";
 
 export const metadata: Metadata = {
   title: "Sign In",
@@ -26,16 +28,10 @@ const SignInPage = async () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-4">
+      <Card className="w-full max-w-sm">
+        <CardHeader className="space-y-2 pb-4">
           <Link href="/" className="flex-center">
-            <Image
-              src="/images/logo-dark.svg"
-              width={80}
-              height={80}
-              alt={`${APP_NAME} logo`}
-              priority={true}
-            />
+            <Logo />
           </Link>
           <CardTitle className="text-center">Log In</CardTitle>
           <CardDescription className="text-center">
@@ -44,7 +40,15 @@ const SignInPage = async () => {
         </CardHeader>
         <CardContent className="space-y-2">
           <CredentialsLogInForm />
+          <GoogleLogin />
         </CardContent>
+        <CardFooter>
+          <BackButton
+            href="/sign-up"
+            text="Don't have an account?"
+            linkText="Sign Up"
+          />
+        </CardFooter>
       </Card>
     </div>
   );

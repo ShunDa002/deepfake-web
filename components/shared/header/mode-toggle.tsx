@@ -38,6 +38,7 @@ const ModeToggle = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
+          size="sm"
           className="focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           {getThemeIcon()}
