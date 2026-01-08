@@ -8,6 +8,7 @@ import ImageUrlDialog from "./ImageUrlDialog";
 import ImageErrorAlert from "./ImageErrorAlert";
 import useImageValidation from "./useImageValidation";
 import { detectImage } from "@/lib/actions/detector.actions";
+import { compressImage } from "@/lib/utils/imageCompression";
 
 const UploadImage = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -94,7 +95,14 @@ const UploadImage = () => {
       // console.log("Submitting image:", uploadedImage);
 
       try {
-        const result = await detectImage(imageFile);
+        // Compress image if needed to stay under Vercel's 4.5MB limit
+        const compressedFile = await compressImage(imageFile, 4, 2048, 0.8);
+        // console.log(
+        //   `Original: ${(imageFile.size / 1024 / 1024).toFixed(2)}MB, ` +
+        //   `Compressed: ${(compressedFile.size / 1024 / 1024).toFixed(2)}MB`
+        // );
+
+        const result = await detectImage(compressedFile);
 
         if (result.success) {
           // console.log("Detection successful:", result.data);
