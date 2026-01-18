@@ -1,20 +1,30 @@
 "use server";
 
-export async function detectImage(image: File) {
+type ModelType = "vit" | "siglip";
+
+export async function detectImage(image: File, model: ModelType = "vit") {
   try {
     // Create FormData and append the file
     const formData = new FormData();
     formData.append("file", image);
 
+    // Choose endpoint based on selected model
+    const endpointMap: Record<ModelType, string> = {
+      vit: "https://shunda012-deepfake-fastapi.hf.space/vit-detect",
+      siglip: "https://shunda012-deepfake-fastapi.hf.space/siglip-detect",
+    };
+
+    const endpoint = endpointMap[model];
+    if (!endpoint) {
+      throw new Error("Unsupported model selected");
+    }
+
     // Make POST request to FastAPI endpoint
-    const response = await fetch(
-      "https://shunda012-deepfake-fastapi.hf.space/detect",
-      {
-        method: "POST",
-        body: formData,
-        // Don't set Content-Type header - browser will set it automatically with boundary
-      }
-    );
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+      // Don't set Content-Type header - browser will set it automatically with boundary
+    });
 
     if (!response.ok) {
       throw new Error(`Detection failed: ${response.statusText}`);
