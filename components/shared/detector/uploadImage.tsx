@@ -137,9 +137,10 @@ const UploadImage = () => {
 
   return (
     <div className="w-full max-w-sm lg:max-w-xl mx-auto px-4 lg:px-0">
-      <h1 className="text-2xl lg:text-6xl font-bold text-center mb-2 mt-4 lg:mt-8">
+      <h1 className="text-2xl lg:text-4xl font-bold text-center mb-2 mt-4 lg:mt-8">
         GuessWho{" "}
         <span
+          className="block"
           style={{
             background: "linear-gradient(90deg, #2e83fb, #bc63fb)",
             WebkitBackgroundClip: "text",
@@ -150,12 +151,12 @@ const UploadImage = () => {
           Deepfake Detector
         </span>
       </h1>
-      <p className="text-sm lg:text-base text-muted-foreground text-center mb-6">
+      <p className="hidden lg:text-sm text-muted-foreground text-center mb-6">
         Detect deepfake in just 10s. Pick your model below, then upload an
         image—no sign-up needed.
       </p>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4 mb-4 lg:mb-6">
+      <ul className="grid grid-cols-2 gap-3 lg:gap-4 mb-4 lg:mb-6">
         {modelOptions.map((option) => {
           const isActive = selectedModel === option.key;
           return (
@@ -177,12 +178,12 @@ const UploadImage = () => {
                   : "border-border hover:border-primary/60 hover:bg-accent/40"
               }`}
             >
-              <div className="flex items-center justify-between mb-1.5 lg:mb-2">
-                <span className="text-sm lg:text-base font-semibold text-foreground">
+              <div className="flex items-center justify-between mb-1 lg:mb-2">
+                <span className="text-xs lg:text-base font-semibold text-foreground">
                   {option.title}
                 </span>
                 <span
-                  className={`text-[10px] lg:text-xs px-2 py-0.5 rounded-full ${
+                  className={`text-[8px] lg:text-xs px-2 py-0.5 rounded-full ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "bg-muted text-muted-foreground"

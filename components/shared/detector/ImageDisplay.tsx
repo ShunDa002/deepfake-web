@@ -8,11 +8,11 @@ interface ImageDisplayProps {
 const ImageDisplay = ({ imageUrl, onClear }: ImageDisplayProps) => {
   return (
     <div className="relative">
-      <div className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden flex items-center justify-center min-h-[180px] lg:min-h-[280px] bg-gray-50 dark:bg-gray-900">
+      <div className="border-2 border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden flex items-center justify-center min-h-[340px] bg-gray-50 dark:bg-gray-900">
         <img
           src={imageUrl}
           alt="Uploaded"
-          className="w-full h-full max-h-[180px] lg:max-h-[280px] object-contain"
+          className="w-full h-full max-h-[340px] object-contain"
         />
       </div>
       {/* Circle X button on top-right corner */}
